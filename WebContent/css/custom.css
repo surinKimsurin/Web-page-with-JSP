@@ -1,0 +1,16 @@
+@charset "EUC-KR";
+<!--커스텀하기위해 부트스트랩 덮어쓰는 형식으로 이거 사용.-->
+@import url(https://fonts.googleapis.com/earlyaccess/jejugothic.css); 
+@import url(https://fonts.googleapis.com/earlyaccess/kopubbatang.css); 
+.navbar-brand, h1,h2,h3,h4{
+	font-family: 'Jeju Myeongjo', serif; 
+	}
+
+h5{
+	font-family: 'KoPub Batang', serif; 
+	font-size:18px;
+	}
+	
+body{
+	font-family:'Nanum Gothic';
+}
