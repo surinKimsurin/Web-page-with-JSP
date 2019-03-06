@@ -44,9 +44,10 @@ public class EvaluationDAO {
 		
 	}
 	public ArrayList<EvaluationDTO> getList(String lectureDivide, String searchType, String search, int pageNumber){
-		if(lectureDivide.equals("전체")) {
+		if(lectureDivide.equals("all")) {
 				lectureDivide="";
 		}
+		
 		ArrayList<EvaluationDTO> evaluationList=null;
 
 		String SQL="";
@@ -55,10 +56,10 @@ public class EvaluationDAO {
 		ResultSet rs=null;
 		
 		try {
-			if(searchType.equals("최신순")) {
+			if(searchType.equals("new")) {
 				SQL="SELECT * FROM EVALUATION WHERE lectureDivide LIKE ? AND CONCAT(lectureName, professorName, evaluationTitle, evaluationContent) LIKE " +
 						"? ORDER BY evaluationID DESC LIMIT " + pageNumber * 5 + ", " + pageNumber*5 +6;
-			}else if(searchType.equals("추천순")) {
+			}else if(searchType.equals("recommend")) {
 				SQL="SELECT * FROM EVALUATION WHERE lectureDivide LIKE ? AND CONCAT(lectureName, professorName, evaluationTitle,evaluationContent) LIKE " +
 						"? ORDER BY likeCount DESC LIMIT " + pageNumber * 5 + ", " + pageNumber*5 +6;
 			}
@@ -97,7 +98,7 @@ public class EvaluationDAO {
 			try{if(pstmt!=null) pstmt.close(); }catch(Exception e) {e.printStackTrace();}
 			try{if(rs!=null) rs.close(); }catch(Exception e) {e.printStackTrace();}
 		}
-		return evaluationList;//�뜲踰좎뾾�쓬
+		return evaluationList;
 	}
 	
 	public int like(String evaluationID) {

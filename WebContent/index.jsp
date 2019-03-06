@@ -11,8 +11,8 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, inintial-scale=1.0, shrink-to-fit=no">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">	
+<meta name="viewport" content="width=device-width, inintial-scale=1.0, shrink-to-fit=no">
 	<title>강의평가 웹사이트</title>
 	<!-- 부트스트랩 css 추가 -->
 	<link rel="stylesheet" href="./css/bootstrap.min.css">
@@ -22,14 +22,14 @@
 <body>
 
 <%
-	request.setCharacterEncoding("UTF-8");
-	String lectureDivide="전체";
-	String searchType="최신순";
+	String lectureDivide="all";
+	String searchType="new";
 	String search="";
 	int pageNumber=0;
-	
+	request.setCharacterEncoding("UTF-8");
+
 	if(request.getParameter("lectureDivide")!=null){
-		lectureDivide=request.getParameter("lectureDivde");
+		lectureDivide=request.getParameter("lectureDivide");
 	}
 	
 	if(request.getParameter("searchType")!=null){
@@ -108,23 +108,23 @@
 				</div>
 			</li>
 		</ul>
-		<form action="./index.jsp" method="get" class="form-inline my-2 my-lg-0">
+		<form action="./index.jsp" method="get" class="form-inline my-2 my-lg-0" accept-charset="utf-8" onsubmit="document.charset='utf-8'">
 			<input type="text" name="search" class="form-control mr-sm-2" type="search" placeholder="내용을 입력하세요" aria-label="seach">
 			<button class="btn btn-outline-success my-2 my-sm-0" type="submit">검색</button>
 		</form>
 	</div>		
 </nav>
 	<section class="container">
-		<form method="get" action="./index.jsp" class="form-inline mt-3">
+		<form method="get" action="./index.jsp" class="form-inline mt-3" >
 			<select name="lectureDivide" class="form-control mx-1 mt-2">
-				<option value="전체">전체</option>
-				<option value="전공" <% if(lectureDivide.equals("전공")) out.println("selected"); %>>전공</option>
-				<option value="교양" <% if(lectureDivide.equals("교양")) out.println("selected"); %>>교양</option>
-				<option value="기타" <% if(lectureDivide.equals("기타")) out.println("selected"); %>>기타</option>
+				<option value="all">전체</option>
+				<option value="major" <% if(lectureDivide.equals("major")) out.println("selected"); %>>전공</option>
+				<option value="lecture" <% if(lectureDivide.equals("lecture")) out.println("selected"); %>>교양</option>
+				<option value="etc" <% if(lectureDivide.equals("etc")) out.println("selected"); %>>기타</option>
 			</select>
 			<select name="searchType" class="form-control mx-1 mt-2">
-				<option value="최신순">최신순</option>
-				<option value="추천순"<%if(searchType.equals("추천순")) out.println("selected"); %>>추천순</option>
+				<option value="new"> 최신순 </option>
+				<option value="recommend"<%if(searchType.equals("recommend")) out.println("selected"); %>>추천순</option>
 			</select>
 			<input type="text" name="search" class="form-control mx-1 mt-2" placeholder="내용을 입력하세요">
 			<button type="submit" class="btn btn-primary mx-1 mt-2">검색</button>
@@ -186,8 +186,7 @@
 	 	<%
 	 		} else {
 	 	%>
-	 	<a class="page-link" href="./index.jsp?lecterDivide=<%=URLEncoder.encode(lectureDivide,"UTF-8") %>&searchType=
-	 <%= URLEncoder.encode(searchType, "UTF-8") %>&search=<%=URLEncoder.encode(search,"UTF-8") %>&pageNumber=<%=pageNumber-1 %>">이전</a>
+	 	<a class="page-link" href="./index.jsp?lecterDivide=<%=URLEncoder.encode(lectureDivide,"UTF-8") %>&searchType=<%=URLEncoder.encode(searchType,"UTF-8")%>&search=<%=URLEncoder.encode(search,"UTF-8") %>&pageNumber=<%=pageNumber-1 %>">이전</a>
 		<%
 	 		}
 	 	%>
@@ -203,8 +202,7 @@
 	 	}else{
 %>
 		<a class="page-link" href="./index.jsp?lecterDivide=<%=URLEncoder.encode(lectureDivide,"UTF-8")%>&searchType=
-		<%= URLEncoder.encode(searchType, "UTF-8")%>&search=<%=URLEncoder.encode(search,"UTF-8") %>&pageNumber=
-		<%= pageNumber+1 %>"> 다음</a>
+		<%= URLEncoder.encode(searchType, "UTF-8")%>&search=<%=URLEncoder.encode(search,"UTF-8") %>&pageNumber=<%= pageNumber+1 %>"> 다음</a>
 		
 <%
 	 	}		
@@ -260,9 +258,9 @@
 							<div class="form-group col-sm-4">
 								<label>강의구분</label>
 								<select name="lectureDivide" class="form-control">
-									<option value="전공" selected>전공</option>
-									<option value="교양">교양</option>
-									<option value="기타">기타</option>
+									<option value="major" selected>전공</option>
+									<option value="lecture">교양</option>
+									<option value="etc">기타</option>
 								</select>
 							</div>
 						</div>
