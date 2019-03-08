@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+	
+<mapper namespace="mapper.post">
+	<resultMap type="postVO" id="postResult">
+	<result property="post_articleNO" column="post_articleNO"/>
+	<result property="post_title" column="post_title"/>
+	<result property="post_content" column="post_content"/>
+	<result property="post_imageFileName" column="post_imageFileName"/>
+	<result property="post_writeDate" column="post_writeDate"/>
+	<result property="post_theme" column="post_theme"/>
+	<result property="post_id" column="post_id"/>
+		</resultMap>
+		
+		<select id="everyPost" resultType="postVO" parameterType="java.util.Map">
+
+		</select>
+		
+		<update id="modPost" parameterType="java.util.Map">
+			update b_post set 
+			post_title=#{post_title},
+					post_content=#{post_content},
+					post_imageFileName=#{post_imageFileName},				
+					post_theme=#{post_theme}
+			where post_articleNO=#{post_articleNO}
+		</update>
+		
+		<delete id="deletePost" parameterType="int">
+			delete from b_post where post_articleNO=#{post_articleNO}
+		</delete>
+				
+		<select id="postList" resultType="postVO">
+						<![CDATA[
+				select * from b_post
+		]]>
+		</select>
+
+		<select id="searchPost" resultType="postVO" parameterType="String">
+			<![CDATA[
+				select * from b_post where post_theme=#{_post_theme}
+			]]>
+		</select>
+
+		<insert id="addPost" parameterType="java.util.Map">
+		<![CDATA[
+			insert into b_post(
+					post_articleNO,
+					post_title,
+					post_content,
+					post_imageFileName,
+					post_theme,
+					post_id)
+				values(
+					#{post_articleNO},
+					#{post_title},
+					#{post_content},
+					#{post_imageFileName},
+					#{post_theme},
+					#{post_id})
+		]]>
+		</insert>
+		
+		<select id="selectPost" parameterType="int" resultType="postVO">
+			<![CDATA[
+				select * from b_post where post_articleNO=#{post_articleNO}
+			]]>
+		</select>
+		
+		<select id="selectNewPostNO" resultType="int">
+		<![CDATA[
+			select max(post_articleNO)+1 from b_post		
+		]]>
+		</select>
+		
+</mapper>
